@@ -43,7 +43,7 @@ def post_state():
         abort(400, 'Not a JSON')
     if 'name' not in jreq:
         abort(400, 'Missing name')
-    new_state = State(jreq)
+    new_state = State(**jreq)
     storage.save()
     return jsonify(new_state.to_dict()), 201
 

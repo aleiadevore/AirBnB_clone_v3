@@ -7,8 +7,8 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('/states', methods=['GET'])
-@app_views.route('/states/<state_id>', methods=['GET'])
+@app_views.route('/states', strict_slashes=False, methods=['GET'])
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
 def get_state(state_id=None):
     """Method to retrieve list of all state objects or state object by id"""
     if state_id is None:
@@ -23,7 +23,7 @@ def get_state(state_id=None):
     abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE'])
 def del_state(state_id):
     """Deletes state object by id"""
     for obj in storage.all(State).values():
@@ -34,7 +34,7 @@ def del_state(state_id):
     abort(404)
 
 
-@app_views.route('/states', methods=['POST'])
+@app_views.route('/states', strict_slashes=False, methods=['POST'])
 def post_state():
     """Method that transforms HTTP body request to a new state"""
     jreq = request.get_json(silent=True)
@@ -45,10 +45,10 @@ def post_state():
         abort(400, 'Missing name')
     new_state = State(jreq)
     storage.save()
-    return jsonify(new_state.to_dict())
+    return jsonify(new_state.to_dict()), 201
 
 
-@app_views.route('states/<state_id>', methods=['PUT'])
+@app_views.route('states/<state_id>', strict_slashes=False, methods=['PUT'])
 def put_state(state_id):
     """Update state object"""
     for obj in storage.all(State).values():

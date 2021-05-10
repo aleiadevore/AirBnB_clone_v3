@@ -61,8 +61,7 @@ def put_user(user_id):
             if jreq is None:
                 abort(400, 'Not a JSON')
             for key, value in jreq.items():
-                if key == 'id' or key == "created_at" or key == "updated_at"
-                or key == 'email':
+                if key == 'id' or key == "created_at" or key == "updated_at" or key == 'email':
                     continue
                 setattr(obj, key, value)
             obj.save()

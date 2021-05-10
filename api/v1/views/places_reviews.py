@@ -48,7 +48,7 @@ def del_review(review_id):
 def post_review(place_id=None):
     """Method that transforms HTTP body request to a new review"""
     jreq = request.get_json(silent=True)
-    place = storage.get(place, place_id)
+    place = storage.get(Place, place_id)
 
     if place is None:
         abort(404)

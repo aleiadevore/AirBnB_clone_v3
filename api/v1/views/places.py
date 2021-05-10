@@ -7,6 +7,7 @@ from models import storage
 from models.city import City
 from models.place import Place
 from models.state import State
+from models.user import User
 
 
 @app_views.route('/cities/<city_id>/places',
@@ -58,7 +59,9 @@ def post_place(city_id=None):
         abort(400, 'Missing name')
     if 'user_id' not in jreq:
         abort(400, 'Missing user_id')
+    print(jreq['user_id'])
     user = storage.get(User, jreq['user_id'])
+    print(user)
     if user is None:
         abort(404)
     new_place = Place(**jreq)

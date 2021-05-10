@@ -11,7 +11,7 @@ from models.state import State
 
 @app_views.route('/cities/<city_id>/places',
                  strict_slashes=False, methods=['GET'])
-def get_places_in_city(state_id=None):
+def get_places_in_city(city_id=None):
     """Method to retrieve list of all places matching city_id"""
     for obj in storage.all(City).values():
         if obj.id == city_id:

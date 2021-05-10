@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Default restful api actions for state"""
+"""Default restful api actions for amenity"""
 
 from api.v1.views import app_views
 from flask import abort, Flask, jsonify, request
@@ -11,16 +11,16 @@ from models.amenity import Amenity
 @app_views.route('/amenities/<amenity_id>',
                  strict_slashes=False, methods=['GET'])
 def get_amenity(amenity_id=None):
-    """Method to retrieve list of all amenity objects or state object by id"""
+    """Method to retrieve list of all amenity objects or amenity object by id"""
     if amenity_id is None:
         amenity_list = []
         for obj in storage.all(Amenity).values():
-            state_list.append(obj.to_dict())
+            amenity_list.append(obj.to_dict())
         return jsonify(amenity_list)
     for obj in storage.all(Amenity).values():
-        if obj.id == state_id:
-            state = obj.to_dict()
-            return state
+        if obj.id == amenity_id:
+            amenity = obj.to_dict()
+            return amenity
     abort(404)
 
 
@@ -53,7 +53,7 @@ def post_amenity():
 @app_views.route('/amenities/<amenity_id>',
                  strict_slashes=False, methods=['PUT'])
 def put_amenity(amenity_id):
-    """Update state object"""
+    """Update amenity object"""
     for obj in storage.all(Amenity).values():
         if obj.id == amenity_id:
             amenity = obj.to_dict()

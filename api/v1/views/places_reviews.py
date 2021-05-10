@@ -6,7 +6,7 @@ from flask import abort, Flask, jsonify, request
 from models import storage
 from models.review import Review
 from models.place import Place
-from models.state import State
+from models.user import User
 
 
 @app_views.route('/places/<place_id>/reviews',
@@ -16,9 +16,9 @@ def get_reviews_in_place(place_id=None):
     for obj in storage.all(Place).values():
         if obj.id == place_id:
             review_list = []
-            for review in obj.review:
+            for review in obj.reviews:
                 review_list.append(review.to_dict())
-            return jsonify(place_list)
+            return jsonify(review_list)
     abort(404)
 
 

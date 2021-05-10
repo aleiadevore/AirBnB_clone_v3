@@ -58,7 +58,7 @@ def post_place(city_id=None):
         abort(400, 'Missing name')
     if 'user_id' not in jreq:
         abort(400, 'Missing user_id')
-    user = storage.get(User, jreq[user_id])
+    user = storage.get(User, jreq['user_id'])
     if user is None:
         abort(404)
     new_place = Place(**jreq)

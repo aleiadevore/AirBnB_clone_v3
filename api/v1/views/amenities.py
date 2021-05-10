@@ -11,7 +11,8 @@ from models.amenity import Amenity
 @app_views.route('/amenities/<amenity_id>',
                  strict_slashes=False, methods=['GET'])
 def get_amenity(amenity_id=None):
-    """Method to retrieve list of all amenity objects or amenity object by id"""
+    """Method to retrieve list of all amenity objects or
+    amenity object by id"""
     if amenity_id is None:
         amenity_list = []
         for obj in storage.all(Amenity).values():

@@ -4,7 +4,6 @@
 from api.v1.views import app_views
 from flask import abort, Flask, jsonify, request
 from models import storage
-from models.state import State
 from models.amenity import Amenity
 
 
@@ -38,7 +37,7 @@ def del_amenities(amenity_id):
 
 
 @app_views.route('/amenities', strict_slashes=False, methods=['POST'])
-def post_state():
+def post_amenity():
     """Method that transforms HTTP body request to a new amenity"""
     jreq = request.get_json(silent=True)
 
@@ -53,7 +52,7 @@ def post_state():
 
 @app_views.route('/amenities/<amenity_id>',
                  strict_slashes=False, methods=['PUT'])
-def put_state(amenity_id):
+def put_amenity(amenity_id):
     """Update state object"""
     for obj in storage.all(Amenity).values():
         if obj.id == amenity_id:

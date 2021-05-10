@@ -51,7 +51,7 @@ def post_user():
     return jsonify(new_User.to_dict()), 201
 
 
-@app_views.route('users/<user_id>', strict_slashes=False, methods=['PUT'])
+@app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
 def put_user(user_id):
     """Update user object"""
     for obj in storage.all(User).values():

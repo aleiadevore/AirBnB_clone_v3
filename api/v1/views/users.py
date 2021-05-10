@@ -48,7 +48,7 @@ def post_user():
         abort(400, 'Missing password')
     new_user = User(**jreq)
     storage.save()
-    return jsonify(new_User.to_dict()), 201
+    return jsonify(new_user.to_dict()), 201
 
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
@@ -61,8 +61,10 @@ def put_user(user_id):
             if jreq is None:
                 abort(400, 'Not a JSON')
             for key, value in jreq.items():
-                if key == 'id' or key == "created_at" or key == "updated_at" or key == 'email':
+                if key == 'id' or key == "created_at" \
+                 or key == "updated_at" or key == 'email':
                     continue
                 setattr(obj, key, value)
             obj.save()
             return jsonify(obj.to_dict()), 200
+    abort(404)

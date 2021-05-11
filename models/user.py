@@ -27,10 +27,10 @@ class User(BaseModel, Base):
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
-    
+
         if kwargs is not None and 'password' in kwargs:
-            kwargs['password'] = hashlib.md5(kwargs.get('password').encode()).hexdigest()
+            pa = hashlib.md5(kwargs.get('password').encode('utf-8'))\
+                .hexdigest()
+            kwargs['password'] = pa
 
         super().__init__(*args, **kwargs)
-
-
